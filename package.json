@@ -1,0 +1,23 @@
+{
+  "name": "distributed_nodes",
+  "version": "1.0.0",
+  "description": "Distributed Counter System",
+  "main": "index.js",
+  "scripts": {
+    "start:coordinator": "node coordinator.js 3000",
+    "start:node1": "node node.js 3001",
+    "start:node2": "node node.js 3002",
+    "start:node3": "node node.js 3003",
+    "start:client": "node client.js",
+    "dev": "nodemon coordinator.js"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC",
+  "dependencies": {
+    "express": "^5.2.1",
+    "nodemon": "^3.1.11",
+    "socket.io": "^4.5.4",
+    "axios": "^1.6.2"
+  }
+}
