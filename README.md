@@ -101,12 +101,22 @@ npm run start:client
 ### Running with Docker Compose
 
 ```bash
-docker-compose up
+docker compose up --build
 ```
 
 Then in another terminal:
 ```bash
 npm run start:client
+```
+
+The Compose stack starts the coordinator and three nodes with health checks. The
+coordinator and nodes communicate over the Compose network at
+`coordinator:3000`; the host can access the services on ports `3000-3003`.
+
+Stop the containers with:
+
+```bash
+docker compose down
 ```
 
 ## Client Commands
@@ -210,6 +220,8 @@ After mastering this, explore:
 ├── package.json        - Dependencies
 ├── docker-compose.yml  - Docker orchestration
 ├── Dockerfile          - Container image
+├── start.bat           - Windows local launcher
+├── start.sh            - macOS/Linux local launcher
 └── README.md           - This file
 ```
 

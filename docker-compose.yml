@@ -1,13 +1,12 @@
-version: "3.8"
-
 services:
   coordinator:
     build: .
+    container_name: distributed-counter-coordinator
     ports:
       - "3000:3000"
     environment:
       - NODE_ENV=production
-    command: node coordinator.js
+    command: node coordinator.js 3000
     healthcheck:
       test: ["CMD", "curl", "-f", "http://localhost:3000/health"]
       interval: 5s
@@ -16,10 +15,13 @@ services:
 
   node1:
     build: .
+    container_name: distributed-counter-node1
     ports:
       - "3001:3001"
     environment:
       - NODE_ENV=production
+      - COORDINATOR_URL=http://coordinator:3000
+      - PUBLIC_NODE_URL=http://localhost:3001
     command: node node.js 3001
     depends_on:
       coordinator:
@@ -32,10 +34,13 @@ services:
 
   node2:
     build: .
+    container_name: distributed-counter-node2
     ports:
       - "3002:3002"
     environment:
       - NODE_ENV=production
+      - COORDINATOR_URL=http://coordinator:3000
+      - PUBLIC_NODE_URL=http://localhost:3002
     command: node node.js 3002
     depends_on:
       coordinator:
@@ -48,10 +53,13 @@ services:
 
   node3:
     build: .
+    container_name: distributed-counter-node3
     ports:
       - "3003:3003"
     environment:
       - NODE_ENV=production
+      - COORDINATOR_URL=http://coordinator:3000
+      - PUBLIC_NODE_URL=http://localhost:3003
     command: node node.js 3003
     depends_on:
       coordinator:

@@ -2,7 +2,7 @@ const express = require('express');
 const axios = require('axios');
 const app = express();
 
-const COORDINATOR_URL = 'http://localhost:3000';
+const COORDINATOR_URL = process.env.COORDINATOR_URL || 'http://localhost:3000';
 const port = process.argv[2] || 3001;
 const nodeId = `NODE-${port}`;
 
@@ -15,7 +15,7 @@ async function registerWithCoordinator() {
   try {
     const response = await axios.post(`${COORDINATOR_URL}/register`, {
       nodeId,
-      nodeUrl: `http://localhost:${port}`
+      nodeUrl: process.env.PUBLIC_NODE_URL || `http://localhost:${port}`
     });
     localCounter = response.data.counterValue;
     console.log(`✅ Registered with coordinator. Current counter: ${localCounter}`);
